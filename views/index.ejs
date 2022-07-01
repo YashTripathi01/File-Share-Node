@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+        <style>
+            .custom-wrap label {
+                display: block;
+            }
+            .cur {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <% if (locals.fileLink != null ) { %>
+        <div style="margin-bottom: 1rem">
+            Your file is uploaded!
+            <a class="cur" id="myLink" href="<%= locals.fileLink %> "
+                ><%= locals.fileLink %></a
+            >
+            <button class="cur" onclick="copyToClipboard('myLink')">
+                Copy
+            </button>
+        </div>
+        <% } %>
+        <form
+            action="/upload"
+            method="post"
+            style="
+                display: grid;
+                gap: 0.5rem;
+                grid-template-columns: auto 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            "
+            enctype="multipart/form-data"
+        >
+            <label for="file">File:</label>
+            <input class="cur" type="file" name="file" id="file" required />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" />
+            <button class="cur" type="submit" style="grid-column: span 2">
+                Share
+            </button>
+        </form>
+
+        <script>
+            function copyToClipboard(id) {
+                var r = document.createRange();
+                r.selectNode(document.getElementById(id));
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(r);
+                document.execCommand("copy");
+                window.getSelection().removeAllRanges();
+            }
+        </script>
+    </body>
+</html>
