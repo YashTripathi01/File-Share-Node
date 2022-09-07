@@ -6,17 +6,67 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home</title>
         <style>
+            * {
+                font-size: 14px;
+                font-family: "Poppins", sans-serif;
+            }
             .custom-wrap label {
                 display: block;
             }
             .cur {
                 cursor: pointer;
             }
+            .center {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .form-style {
+                display: grid;
+                gap: 0.5rem;
+                grid-template-columns: auto 1fr;
+                max-width: 500px;
+                margin: 15px auto;
+            }
+            button {
+                color: white;
+                background: #007bff;
+                border: none;
+                padding: 4px 10px;
+                border-radius: 10px;
+            }
+            label {
+                width: 75px;
+            }
         </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-style">
+                <label for="file">File:</label>
+                <input class="cur" type="file" name="file" id="file" required />
+            </div>
+            <div class="form-style">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" />
+            </div>
+            <div class="center" style="margin: 0.5rem">
+                <button class="cur" type="submit" style="grid-column: span 2">
+                    Share
+                </button>
+            </div>
+        </form>
         <% if (locals.fileLink != null ) { %>
-        <div style="margin-bottom: 1rem">
+        <div
+            class="center"
+            style="margin: 1rem 22rem; justify-content: space-evenly"
+        >
             Your file is uploaded!
             <a class="cur" id="myLink" href="<%= locals.fileLink %> "
                 ><%= locals.fileLink %></a
@@ -26,26 +76,6 @@
             </button>
         </div>
         <% } %>
-        <form
-            action="/upload"
-            method="post"
-            style="
-                display: grid;
-                gap: 0.5rem;
-                grid-template-columns: auto 1fr;
-                max-width: 500px;
-                margin: 0 auto;
-            "
-            enctype="multipart/form-data"
-        >
-            <label for="file">File:</label>
-            <input class="cur" type="file" name="file" id="file" required />
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" />
-            <button class="cur" type="submit" style="grid-column: span 2">
-                Share
-            </button>
-        </form>
 
         <script>
             function copyToClipboard(id) {

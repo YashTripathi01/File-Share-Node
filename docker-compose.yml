@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: fileshare-application
+        depends_on:
+            db:
+                condition: service_healthy
+        networks:
+            - fileshare
+        ports:
+            - "3005:3000"
+
+    db:
+        image: mongo
+        container_name: fileshare-mongodb
+        # environment:
+        #     MONGO_INITDB_ROOT_USERNAME: root
+        #     MONGO_INITDB_ROOT_PASSWORD: password
+        ports:
+            - "27018:27017"
+        networks:
+            - fileshare
+        volumes:
+            - ./data:/data/db
+        healthcheck:
+            test: "exit 0"
+
+networks:
+    fileshare:
+        driver: bridge

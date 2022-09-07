@@ -61,5 +61,5 @@ const ip = require("ip").address();
 
 // app.listen(process.env.PORT, ip, () => console.log('Server up and running at http://' + ip + ':3000'))
 app.listen(process.env.PORT, ip, () =>
-    console.log(`Server up and running at http://${ip}:3000`)
+    console.log(`Server up and running at http://${ip}:${process.env.PORT}`)
 );
