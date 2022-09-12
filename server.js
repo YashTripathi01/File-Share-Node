@@ -17,6 +17,7 @@ mongoose.connect(process.env.DATABASE_URI, {
 
 app.get("/", (req, res) => {
     res.render("index");
+    return;
 });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
@@ -31,6 +32,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     // console.log(file)
     // res.send(file.originalName)
     res.render("index", { fileLink: `${req.headers.origin}/file/${file.id}` });
+    return;
 });
 
 app.route("/file/:id").get(handleDownload).post(handleDownload);
@@ -55,6 +57,7 @@ async function handleDownload(req, res) {
     console.log(file.downloadCount);
 
     res.download(file.path, file.originalName);
+    return;
 }
 
 const ip = require("ip").address();
